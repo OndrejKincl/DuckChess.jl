@@ -10,7 +10,7 @@ Features:
 
 # Installation
 
-You will first need to install [Julia](https://julialang.org/), if you do not have it already. Julia is a nice and performant programming language. Then, download the content of this repository (or clone if you like git). You will need to install the required packages (in fact, there are not too many of them). To this end, open terminal (<i>command prompt</i> in Windows) in the DuckChess directory, simply type  
+You will first need to install [Julia](https://julialang.org/), if you do not have it already (be sure to add it to PATH). Julia is a nice and performant programming language. Then, download the content of this repository (or clone if you like git). You will need to install the required packages (in fact, there are not too many of them). To this end, open terminal (<i>command prompt</i> in Windows) in the DuckChess directory, simply type  
 
 ```
     julia install_deps.jl

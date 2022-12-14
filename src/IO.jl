@@ -1,4 +1,4 @@
-function print_board(pos::Position; lastmove = NOMOVE, invert = false)
+function print_board(pos::Position; lastmove = NOMOVE, invert = false, use_unicode = true)
     X = collect(1:8)
     Y = collect(1:8)
     reverse!(Y)
@@ -11,22 +11,43 @@ function print_board(pos::Position; lastmove = NOMOVE, invert = false)
         print('\t', y, "|")
         for x in X
             p = pos.board[x,y]
-            s = @match p begin
-                'P' => '♟'
-                'p' => '♙'
-                'N' => '♞'
-                'n' => '♘'
-                'R' => '♜'
-                'r' => '♖'
-                'Q' => '♛'
-                'q' => '♕'
-                'B' => '♝'
-                'b' => '♗'
-                'K' => '♚'
-                'k' => '♔'
-                'D' => '☺'
-                '.' => ' '
-                 _  => '?'
+            s = '?'
+            if use_unicode
+                s = @match p begin
+                    'P' => '♟'
+                    'p' => '♙'
+                    'N' => '♞'
+                    'n' => '♘'
+                    'R' => '♜'
+                    'r' => '♖'
+                    'Q' => '♛'
+                    'q' => '♕'
+                    'B' => '♝'
+                    'b' => '♗'
+                    'K' => '♚'
+                    'k' => '♔'
+                    'D' => '☺'
+                    '.' => ' '
+                     _  => '?'
+                end
+            else
+                s = @match p begin
+                    'P' => 'P'
+                    'p' => 'p'
+                    'N' => 'N'
+                    'n' => 'n'
+                    'R' => 'R'
+                    'r' => 'r'
+                    'Q' => 'Q'
+                    'q' => 'q'
+                    'B' => 'B'
+                    'b' => 'b'
+                    'K' => 'K'
+                    'k' => 'k'
+                    'D' => 'D'
+                    '.' => ' '
+                     _  => '?'
+                end
             end
             if (s == ' ') && ((x,y) == (lastmove.x0, lastmove.y0))
                 print(" *")

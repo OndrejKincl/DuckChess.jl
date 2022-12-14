@@ -57,6 +57,8 @@ Then there are also the less useful commands:
 
 * ``r`` &nbsp; ->  &nbsp; read position from FEN
 
+* ``U`` &nbsp; ->  &nbsp; switch to UNICODE display (looks nicer but may fail in some obscure operating systems like Windows)
+
 It is recommended to use this program together with a real chessboard. (Duck does not need to be real though - a rubber duck is sufficient.) It is also advised to change display settings of your console to magnify all characters.
 
 # Screenshot

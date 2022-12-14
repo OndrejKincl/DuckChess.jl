@@ -1,5 +1,12 @@
 module PlayGame
 
+const IS_UNICODE_DEFAULT = false
+const IS_BLITZMODE_DEFAULT = false
+const IS_INVERT_DEFAULT = false
+const CPU_DEFAULT_SIDE = 0 # 1 to play white, -1 to play black
+const BLITZ_DEPTH = 6
+const FULL_DEPTH = 8
+
 include("src/DuckChess.jl")
 using .DuckChess
 
@@ -66,21 +73,22 @@ end
 
 function main()
     game = Game(INITIAL_SETUP)
-    invert = false
-    blitzmode = false
-    computer_side = 0
+    invert = IS_INVERT_DEFAULT
+    blitzmode = IS_BLITZMODE_DEFAULT
+    computer_side = CPU_DEFAULT_SIDE
+    use_unicode = IS_UNICODE_DEFAULT
     while true
         if isodd(game.half_move_counter)
             println(div(game.half_move_counter + 1, 2), ".")
             println()
         end
-        print_board(game.pos, lastmove = last_move(game), invert = invert)
+        print_board(game.pos, lastmove = last_move(game), invert = invert, use_unicode = use_unicode)
         result = game_result(game)
         if result != 0
             computer_side = 0
         end
         if (game.pos.toplay == computer_side)
-            max_depth = blitzmode ? 6 : 8
+            max_depth = blitzmode ? BLITZ_DEPTH : FULL_DEPTH
             res = search(game.pos, max_depth)
             add!(game, res.move)
             placeduck!(game.pos, res.Dx, res.Dy)
@@ -116,6 +124,7 @@ function main()
                     println("d ... redraw the board")
                     println("f ... print out FEN code")
                     println("r ... read position from FEN")
+                    println("U ... switch display mode between ASCII and Unicode")
                     println("q ... quit")
                     println("================")
                     println()
@@ -155,12 +164,16 @@ function main()
                 elseif input == "b"
                     blitzmode = !blitzmode
                     continue
+                elseif input == "U"
+                    use_unicode = !use_unicode
+                    print_board(game.pos, lastmove = last_move(game), invert = invert, use_unicode = use_unicode)
+                    continue
                 elseif input == "i"
                     invert = !invert
-                    print_board(game.pos, lastmove = last_move(game), invert = invert)
+                    print_board(game.pos, lastmove = last_move(game), invert = invert, use_unicode = use_unicode)
                     continue
                 elseif input == "d"
-                    print_board(game.pos, lastmove = last_move(game), invert = invert)
+                    print_board(game.pos, lastmove = last_move(game), invert = invert, use_unicode = use_unicode)
                     continue
                 elseif input == "n"
                     game = Game(INITIAL_SETUP)
@@ -171,7 +184,7 @@ function main()
                     computer_side = 0
                     break
                 elseif input == "a"
-                    res = search(game.pos, 8)
+                    res = search(game.pos, FULL_DEPTH)
                     score = res.score*game.pos.toplay
                     print("I would play ")
                     print_move(res.move, res.Dx, res.Dy)
@@ -216,7 +229,7 @@ function main()
                     move = move_from_LAN(input, game.pos)
                     if move != NOMOVE
                         add!(game, move)
-                        print_board(game.pos, lastmove = last_move(game), invert = invert)
+                        print_board(game.pos, lastmove = last_move(game), invert = invert, use_unicode = use_unicode)
                         while true
                             print("Place the duck:  ")
                             input = readline()

@@ -1,6 +1,6 @@
 # DuckChess.jl
 
-This is an extremely experimental engine for a variant of chess known as [duckchess](https://duckchess.com/) implemented in Julia. Please note that making good chess engines is a complicated and time-consuming task (especially in C). Even more so for chess variants, where there is often a lack of data and theoretical knowledge.
+This is an extremely experimental engine for a variant of chess known as [duckchess](https://duckchess.com/) implemented in Julia. Please note that making good chess engines is a complicated and time-consuming task (especially in C). Even more so for unusual chess variants, where there is often a lack of data and theoretical knowledge.
 
 Features:
 
@@ -10,13 +10,13 @@ Features:
 
 # Installation
 
-You will first need to download [Julia](https://julialang.org/), if you do not have it already. Julia is a nice and performant programming language. Then, download the content of this repository (or clone if you really like git). You will need to install the required packages (in fact, there are not too many of them). To this end, open terminal (<i>command prompt</i> in Windows) in the DuckChess directory, simply type  
+You will first need to install [Julia](https://julialang.org/), if you do not have it already. Julia is a nice and performant programming language. Then, download the content of this repository (or clone if you like git). You will need to install the required packages (in fact, there are not too many of them). To this end, open terminal (<i>command prompt</i> in Windows) in the DuckChess directory, simply type  
 
 ```
     julia install_deps.jl
 ```
 
-and use almighty ENTER.
+and press almighty ENTER.
 
 # How to play
 
@@ -88,3 +88,5 @@ The program uses an iterative deepening minmax algorithm with alpha-beta pruning
 Positions are evaluated at leaf nodes using piece-square tables made for standard chess. Weights were obtained from: https://www.chessprogramming.org/PeSTO%27s_Evaluation_Function. I only tweaked the static value of pieces (e.g. knights are now worth much more than bishops, which is why Trompowsky Attack is so good). I also added a small penalty for midgame knight advancement, so that the engine does not lose them instantly in a futile early attack (it still does). Better static evaluation suited for duckchess might come in future. In quiesce search, I only consider recaptures. (If you read everything so far ... wow. Someone reads READMEs?) 
 
 Duck moves are pruned by first playing a <i>null duck move</i>, which removes the duck entirely from the chessboard. Afterwards, the engine scouts for the opponent's reply (at a lower depth). Only duck moves which prevent this reply (including the opponent's duck placement) are investigated. Once a candidate for best duck placement is found at the node, future duck placements must prevent a reply to the best move in addition to the reply of the null duck move.
+
+If you have ideas how to improve this engine, feel free to start a discussion on GitHub webpage of this project.

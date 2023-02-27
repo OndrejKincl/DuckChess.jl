@@ -1,6 +1,6 @@
 # DuckChess.jl
 
-This is an extremely experimental engine for a variant of chess known as [duckchess](https://duckchess.com/) implemented in Julia. Please note that making good chess engines is a complicated and time-consuming task (especially in C). Even more so for unusual chess variants, where there is often a lack of data and theoretical knowledge.
+This is an extremely experimental engine for a variant of chess known as [duckchess](https://duckchess.com/) implemented in Julia. Please note that making good chess engines is a complicated and time-consuming task. Even more so for unusual chess variants, where there is often a lack of data and theoretical knowledge.
 
 Features:
 
